@@ -16,9 +16,14 @@
         <label class="block text-gray-700 font-bold mb-2">Attachment</label>
         <input type="file" ref="fileInput" @change="handleFileUpload" class="w-full border border-gray-300 p-2 rounded">
       </div>
-      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer" :disabled="isLoading">
-        {{ isLoading ? 'Saving...' : 'Save Note' }}
-      </button>
+      <div class="flex gap-2">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer" :disabled="isLoading">
+          {{ isLoading ? 'Saving...' : (editingId ? 'Update Note' : 'Save Note') }}
+        </button>
+        <button v-if="editingId" type="button" @click="cancelEdit" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 cursor-pointer">
+          Cancel
+        </button>
+      </div>
     </form>
 
     <!-- Notes List -->
@@ -35,9 +40,14 @@
           </a>
         </div>
 
-        <button @click="removeNote(note.id)" class="absolute top-4 right-4 text-red-500 hover:text-red-700 cursor-pointer">
-          Delete
-        </button>
+        <div class="absolute top-4 right-4 flex gap-3">
+          <button @click="startEdit(note)" class="text-blue-500 hover:text-blue-700 cursor-pointer">
+            Edit
+          </button>
+          <button @click="removeNote(note.id)" class="text-red-500 hover:text-red-700 cursor-pointer">
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -50,6 +60,7 @@ import { useNoteStore } from './stores/useNoteStore';
 
 const noteStore = useNoteStore();
 const { notes, isLoading } = storeToRefs(noteStore);
+const editingId = ref(null);
 
 const form = ref({ title: '', content: '', file: null });
 const fileInput = ref(null);
@@ -66,8 +77,29 @@ const submitNote = async () => {
     formData.append('attachment', form.value.file);
   }
 
-  await noteStore.saveNote(formData);
+  if (editingId.value) {
+    await noteStore.updateNote(editingId.value, formData);
+  } else {
+    await noteStore.saveNote(formData);
+  }
+  cancelEdit();
+};
 
+const startEdit = (note) => {
+  editingId.value = note.id;
+  form.value = {
+    title: note.title,
+    content: note.content,
+    file: null,
+  };
+  if (fileInput.value) {
+    fileInput.value.value = '';
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+const cancelEdit = () => {
+  editingId.value = null;
   form.value = { title: '', content: '', file: null };
   if (fileInput.value) {
     fileInput.value.value = '';

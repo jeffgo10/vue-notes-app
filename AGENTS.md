@@ -53,7 +53,7 @@ Shared by Claude, Cursor, and Antigravity. Source of truth is `.agents/skills/` 
 | Skill | Use when |
 |---|---|
 | `handoff` | Compact this session into a temp-file handoff |
-| `create-github-pr` | Open a PR into `dev`, promote `dev` → `master`, hotfix, or clean up a merged branch |
+| `create-github-pr` | Open a PR into `master`, hotfix, or clean up a merged branch |
 | `notes-explore` | Trace API routes, models, attachments, or Pinia/Vue flows before editing |
 | `notes-verifier` | Check a change against Laravel, Vue, Pinia, and Tailwind v4 constraints |
 
