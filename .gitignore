@@ -20,6 +20,10 @@
 /storage/*.key
 /storage/pail
 /vendor
+/contracts/cache
+/contracts/out
+/contracts/broadcast
+/contracts/lib
 _ide_helper.php
 Homestead.json
 Homestead.yaml

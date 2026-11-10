@@ -10,7 +10,10 @@
         "sail:start": "./vendor/bin/sail up -d",
         "sail:stop": "./vendor/bin/sail down",
         "sail:restart": "./vendor/bin/sail restart",
-        "sail:bash": "./vendor/bin/sail bash"
+        "sail:bash": "./vendor/bin/sail bash",
+        "db:migrate": "./vendor/bin/sail artisan migrate",
+        "db:migrate:status": "./vendor/bin/sail artisan migrate:status",
+        "db:migrate:rollback": "./vendor/bin/sail artisan migrate:rollback"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
@@ -28,6 +31,7 @@
         "@vitejs/plugin-vue": "^6.0.10",
         "axios": "^1.21.1",
         "pinia": "^4.1.0",
+        "viem": "^2.57.17",
         "vue": "^3.5.45"
     }
 }
