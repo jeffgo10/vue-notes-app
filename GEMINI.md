@@ -11,7 +11,7 @@ The same skills live in `.agents/skills/` and are linked for Claude (`.claude/sk
 | Skill | Use when |
 |---|---|
 | `handoff` | Compact this session into a temp-file handoff |
-| `create-github-pr` | Open a PR into `dev`, promote `dev` → `master`, hotfix, or clean up a merged branch |
+| `create-github-pr` | Open a PR into `master`, hotfix, or clean up a merged branch |
 | `notes-explore` | Trace a flow before changing it |
 | `notes-verifier` | Check a change against Laravel, Vue, Pinia, and Tailwind v4 constraints |
 
