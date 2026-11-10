@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'blockchain' => [
+        'rpc_url' => env('BLOCKCHAIN_RPC_URL', 'http://host.docker.internal:8545'),
+        'contract_address' => env('VITE_NOTE_NOTARY_ADDRESS'),
+    ],
+
 ];
