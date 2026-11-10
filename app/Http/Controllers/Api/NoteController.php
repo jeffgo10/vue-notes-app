@@ -44,9 +44,28 @@ class NoteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Note $note)
     {
-        //
+        $request->validate([
+            'title' => 'required|string',
+            'content' => 'required|string',
+        ]);
+
+        $data = $request->only(['title', 'content']);
+
+        if ($request->hasFile('attachment')) {
+            // 1. Delete the old file if one existed
+            if ($note->attachment) {
+                Storage::disk('public')->delete($note->attachment);
+            }
+
+            // 2. Store the new file on the 'public' disk
+            $data['attachment'] = $request->file('attachment')->store('attachments', 'public');
+        }
+
+        $note->update($data);
+
+        return $note;
     }
 
     /**
