@@ -20,6 +20,16 @@ export const useNoteStore = defineStore('noteStore', {
       }
     },
 
+    async updateNote(id, formData) {
+      formData.append('_method', 'PUT');
+
+      await axios.post(`/api/notes/${id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      await this.fetchNotes();
+    },
+
     async saveNote(formData) {
       await axios.post('/api/notes', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },

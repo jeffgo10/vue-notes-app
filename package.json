@@ -4,7 +4,13 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "sail:dev": "./vendor/bin/sail npm run dev",
+        "sail:build": "./vendor/bin/sail npm run build",
+        "sail:start": "./vendor/bin/sail up -d",
+        "sail:stop": "./vendor/bin/sail down",
+        "sail:restart": "./vendor/bin/sail restart",
+        "sail:bash": "./vendor/bin/sail bash"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
